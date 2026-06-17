@@ -686,27 +686,36 @@ function toggleRCP() {
   else startRCP();
 }
  
+let rcpAudioCtx = null;
+
 function startRCP() {
   rcpRunning = true;
   document.getElementById('RCPBTN').textContent = '⏸ Pausar';
   document.getElementById('RCPBTN').classList.add('active');
   updateRCPDisplay();
- 
+
+  // Crear el AudioContext UNA SOLA VEZ aquí (ya hay interacción del usuario)
+  if (!rcpAudioCtx) {
+    rcpAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (rcpAudioCtx.state === 'suspended') {
+    rcpAudioCtx.resume();
+  }
+
   rcpInterval = setInterval(() => {
     rcpCount++;
     updateRCPDisplay();
- 
-    // Animación del corazón
+
     const heart = document.getElementById('RCPHEART');
     if (heart) {
       heart.classList.remove('beat');
-      void heart.offsetWidth; // fuerza reflow para reiniciar animación
+      void heart.offsetWidth;
       heart.classList.add('beat');
     }
- 
-    // Sonido
+
+    // Sonido usando el mismo ctx
     try {
-      const ctx  = new (window.AudioContext || window.webkitAudioContext)();
+      const ctx  = rcpAudioCtx;
       const osc  = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.connect(gain);
