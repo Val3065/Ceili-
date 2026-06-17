@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>SIAPA — Primeros Auxilios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+ 
+  <div class="advertencia">
+    ⚠️ 🚨 IMPORTANTE: SIAPA ofrece orientación rápida de primeros auxilios para ayudarte a actuar mientras llega ayuda especializada. No sustituye la atención médica profesional. En caso de emergencia, llama al 911 inmediatamente. 🚨⚠️
+  </div>
+ 
+  <div class="header-wrapper">
+    <div class="btn-container">
+      <button class="btn-main btn-rcp" onclick="openRCP()">❤️ RCP</button>
+      <button class="btn-main btn-emergencias" onclick="openEM()">📞 Emergencias</button>
+    </div>
+    <section class="consulta-container">
+      <input type="text" class="input-consulta" id="QSI" placeholder="¿Qué está pasando?">
+    </section>
+  </div>
+ 
+  <div class="srch-results" id="QSR"></div>
+ 
+  <main class="main">
+    <div class="sec">
+      <div class="sec-hdr"><span class="bdg bdg-g">● Básica</span></div>
+      <div class="grid" id="GG"></div>
+    </div>
+    <div class="sec">
+      <div class="sec-hdr"><span class="bdg bdg-y">● Intermedia</span></div>
+      <div class="grid" id="GY"></div>
+    </div>
+    <div class="sec">
+      <div class="sec-hdr"><span class="bdg bdg-r">● Emergencia</span></div>
+      <div class="grid" id="GR"></div>
+    </div>
+  </main>
+ 
+  <!-- MODAL PRINCIPAL -->
+  <div class="ovl" id="OVL">
+    <div class="modal" id="MOD">
+      <div class="m-hdr" id="MH"></div>
+      <div class="m-body" id="MB"></div>
+    </div>
+  </div>
+ 
+  <!-- OVERLAY EMERGENCIAS -->
+  <div class="em-ovl" id="EMOVL">
+    <div class="em-modal">
+      <div class="em-hdr">
+        <h2>📞 Números de emergencia</h2>
+        <button class="m-cls" onclick="closeEM()">✕</button>
+      </div>
+      <div class="em-body">
+        <a href="tel:911" class="em-card">
+          <span class="em-card-ic">🚨</span>
+          <div class="em-card-info">
+            <div class="em-card-name">Emergencias generales</div>
+            <div class="em-card-num">911</div>
+          </div>
+          <span class="em-card-btn">Llamar</span>
+        </a>
+        <a href="tel:8002900024" class="em-card azul">
+          <span class="em-card-ic">🧪</span>
+          <div class="em-card-info">
+            <div class="em-card-name">Centro Antivenenos</div>
+            <div class="em-card-num">800 290 0024</div>
+          </div>
+          <span class="em-card-btn">Llamar</span>
+        </a>
+        <a href="tel:8009031650" class="em-card verde">
+          <span class="em-card-ic">🏥</span>
+          <div class="em-card-info">
+            <div class="em-card-name">Cruz Roja Mexicana</div>
+            <div class="em-card-num">800 903 1650</div>
+          </div>
+          <span class="em-card-btn">Llamar</span>
+        </a>
+        <a href="tel:55768520" class="em-card azul">
+          <span class="em-card-ic">🚒</span>
+          <div class="em-card-info">
+            <div class="em-card-name">Bomberos CDMX</div>
+            <div class="em-card-num">55 7685 20</div>
+          </div>
+          <span class="em-card-btn">Llamar</span>
+        </a>
+        <a href="tel:8009112000" class="em-card verde">
+          <span class="em-card-ic">🧠</span>
+          <div class="em-card-info">
+            <div class="em-card-name">Línea de la Vida</div>
+            <div class="em-card-num">800 911 2000</div>
+          </div>
+          <span class="em-card-btn">Llamar</span>
+        </a>
+        <div class="em-tip">
+          💡 Guarda estos números en tus contactos antes de necesitarlos.
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- OVERLAY RCP -->
+  <div class="rcp-ovl" id="RCPOVL">
+    <div class="rcp-modal">
+      <div class="rcp-hdr">
+        <h2>❤️ Guía de RCP</h2>
+        <button class="m-cls" onclick="closeRCP()">✕</button>
+      </div>
+      <div class="rcp-body">
+        <div class="rcp-anim">
+          <div class="rcp-heart" id="RCPHEART">❤️</div>
+          <div id="RCPCTR">Presiona "Iniciar" para ver el ritmo con sonido</div>
+        </div>
+        <div class="rcp-btns">
+          <button id="RCPBTN" onclick="toggleRCP()">▶ Iniciar ritmo</button>
+          <button class="rcp-reset" onclick="resetRCPCount()">↺ Reiniciar</button>
+        </div>
+        <div class="warn">
+          ⚠️ <strong>Antes de empezar:</strong> llama al 911 o pide a alguien que llame mientras tú inicias RCP.
+        </div>
+        <div class="rcp-steps">
+          <div class="rcp-step"><span class="rcp-snum">1</span><span>Verifica que la persona <strong>no respira y no tiene pulso</strong>. Máximo 10 segundos.</span></div>
+          <div class="rcp-step"><span class="rcp-snum">2</span><span>Acuéstala <strong>boca arriba sobre el suelo</strong> (superficie dura).</span></div>
+          <div class="rcp-step"><span class="rcp-snum">3</span><span>Entrelaza las manos en el <strong>centro del pecho</strong> (sobre el esternón). Brazos rectos, usa tu peso.</span></div>
+          <div class="rcp-step"><span class="rcp-snum">4</span><span>Comprime <strong>fuerte y rápido</strong>: 100–110 veces por minuto, unos <strong>5 cm de profundidad</strong>. Ritmo de <em>"Stayin' Alive"</em>.</span></div>
+          <div class="rcp-step"><span class="rcp-snum">5</span><span>Cada <strong>30 compresiones</strong>, da <strong>2 respiraciones de rescate</strong>: inclina la cabeza, sella la boca y sopla hasta que el pecho suba.</span></div>
+          <div class="rcp-step"><span class="rcp-snum">6</span><span><strong>No pares</strong> hasta que la persona respire, llegue la ambulancia, o no puedas continuar.</span></div>
+        </div>
+        <div class="tip">
+          💡 Si solo haces compresiones <strong>sin respiraciones</strong>, igual es muy útil. No te detengas por no saber hacer rescate.
+        </div>
+        <a href="tel:911" class="btn-911-m">📞 Llamar al 911 ahora</a>
+      </div>
+    </div>
+  </div>
+ 
+  <footer>
+    <div class="footer-inner"><div class="footer-ver">v2.0</div></div>
+  </footer>
+ 
+  <script src="index.js"></script>
+ 
+</body>
+</html>
